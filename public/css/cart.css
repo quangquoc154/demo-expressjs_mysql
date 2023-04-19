@@ -22,3 +22,23 @@
   margin: 0;
 }
 
+.title-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.title-link:hover {
+  color: #00695c;
+} 
+
+.image-cart {
+  height: 60px;
+}
+
+.image-cart img {
+  height: 60px;
+  width: 60px;
+}
+
+
+
