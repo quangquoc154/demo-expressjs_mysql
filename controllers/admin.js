@@ -15,13 +15,13 @@ exports.postAddProduct = async (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
 
-    const result = await req.user.createProduct({
+    const newProduct = await req.user.createProduct({
       title: title,
       price: price,
       imageUrl: imageUrl,
       description: description,
     });
-    console.log(result);
+    console.log(newProduct);
     res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -65,6 +65,7 @@ exports.postEditProduct = async (req, res, next) => {
     product.price = updatedPrice;
     product.imageUrl = updatedImageUrl;
     product.description = updatedDescription;
+    
     await product.save();
     res.redirect("/admin/products");
   } catch (error) {

@@ -53,9 +53,9 @@ app.use(async (req, res, next) => {
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
-
 app.use(errorController.get404);
 
+// Relationships
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Product);
 User.hasOne(Cart);
@@ -68,19 +68,19 @@ Order.belongsToMany(Product, { through: OrderItem });
 
 (async () => {
   try {
-    const result = await sequelize.sync();
-    // .sync({ force: true })
+    await sequelize.sync();
+    // const result = await sequelize.sync({ force: true })
     //console.log(result);
     const user = await User.findOne({ where: { id: 1 } });
     if (!user) {
-      await User.create({
+      const newUser = await User.create({
         name: "Quoc",
         email: "quangquoc1542002@gmail.com",
       });
+      newUser.createCart();
     } else {
       console.log("Found user:", user);
     }
-    await user.createCart();
     app.listen(3000);
   } catch (error) {
     console.log(error);
